@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Pets :D</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-4">
+				<h2>Olá!</h2>
+				<p>Gerencie seus métodos de pagamento por aqui</p>
+				<h:commandButton value="Adicionar Cartão"
+					styleClass="btn btn-primary" action="adicionarCartao" />
+			</div>
+
+			<div class="col-lg-8">
+				<div class="col-lg-12">
+					<ui:repeat var="cartao" value="#{loginBean.usuarioLogado.cartoes}">
+						<div class="col-lg-6">
+							<div class="panel panel-default">
+								<div class="panel-body">
+									<div class="col-lg-8">
+										<h4>
+											<h:outputText value="#{cartao.bandeira}" />
+										</h4>
+										<p style="color: gray">
+											<i class="fa fa-fw fa-credit-card" />
+											<h:outputText value=" #{cartao.numeroCartao}" />
+										</p>
+										<p style="color: gray">
+											<i class="fa fa-fw fa-calendar" />
+											<h:outputText value=" #{cartao.expDate}" />
+										</p>
+									</div>
+									<div class="col-lg-4" style="margin-top: 5%">
+										<h:commandButton value="Excluir" styleClass="btn btn-danger"
+											action="#{cartaoBean.removerCartao(cartao)}"
+											style="float:right; margin-left:2%; width: 70px; margin-bottom:5%;" />
+										<h:commandButton value="Editar" styleClass="btn btn-default"
+											style="float:right; width: 70px;" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</ui:repeat>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+</html>

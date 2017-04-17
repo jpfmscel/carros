@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="carros" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/carrosDS</jta-data-source>
+<!-- 		<jta-data-source>java:jboss/datasources/carrosDSProd</jta-data-source> -->
+		<!-- <jta-data-source>java:jboss/datasources/ocupelagoDSProd</jta-data-source> -->
+
+		<class>br.com.entidades.Usuario</class>
+		<class>br.com.entidades.Imagem</class>
+		<class>br.com.entidades.Carro</class>
+		<class>br.com.entidades.Marca</class>
+		<class>br.com.entidades.Modelo</class>
+		<class>br.com.entidades.Pais</class>
+		<class>br.com.entidades.Pergunta</class>
+		<class>br.com.entidades.Categoria</class>
+		<class>br.com.entidades.Resposta</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+			<property name="hibernate.id.new_generator_mappings" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.format_sql" value="true" />
+		</properties>
+	</persistence-unit>
+
+</persistence>

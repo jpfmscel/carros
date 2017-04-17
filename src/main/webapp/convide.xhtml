@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Convidar Amigos</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-4">
+				<h2>Olá!</h2>
+				<p>Convide seus amigos!</p>
+			</div>
+
+			<div class="col-lg-8">
+				<div class="col-lg-6">
+					<label>E-mail</label>
+					<h:inputText styleClass="form-control"
+						value="#{convidarBean.email}" type="email"
+						placeholder="E-mail do convidado" />
+				</div>
+				<div class="col-lg-6">
+					<p:commandButton value="Adicionar"
+						action="#{convidarBean.adicionarEmail}"
+						styleClass="btn btn-primary" update="@form" />
+				</div>
+			</div>
+			<div class="col-lg-8 col-lg-offset-4">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4>Convidados</h4>
+						</div>
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table class="table table-hover table-striped">
+									<thead>
+										<tr>
+											<th width="90%">E-mail</th>
+											<th width="10%">Excluir</th>
+										</tr>
+									</thead>
+									<tbody>
+										<ui:repeat var="email" value="#{convidarBean.listaEmail}">
+											<tr>
+												<td style="vertical-align: middle; font-weight: bold;">#{email}</td>
+												<td><p:commandButton styleClass="btn btn-default"
+														icon="ui-icon-trash" style="border-color: white;"
+														update="@form"
+														action="#{convidarBean.removerEmail(email)}">
+													</p:commandButton></td>
+											</tr>
+										</ui:repeat>
+									</tbody>
+								</table>
+								<h:commandButton value="Enviar" styleClass="btn btn-primary" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+</html>

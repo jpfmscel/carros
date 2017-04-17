@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Perguntar</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaixKoXagR5UGhD9HbB03Oip585RCHBks&amp;callback=initMap"
+			type="text/javascript" />
+
+		<script type="text/javascript">
+			var x = document.getElementById('demo');
+
+			function getLocation() {
+
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition);
+				} else {
+					console.log("Geolocation not supported!");
+				}
+			}
+
+			function showPosition(position) {
+				setarPosicao([ {
+					name : 'lat',
+					value : position.coords.latitude
+				}, {
+					name : 'longitude',
+					value : position.coords.longitude
+				} ]);
+			}
+		</script>
+
+		<h:form id="form">
+			<p:remoteCommand name="setarPosicao" process="@this"
+				actionListener="#{perguntaBean.setarPosicao}" />
+
+			<div class="col-lg-4">
+				<h3>Por Marca</h3>
+				<hr />
+				<p:autoComplete value="#{perguntaBean.perguntaAdd.marca}"
+					effect="fade" completeMethod="#{mbgen.completeMarca}" var="marca"
+					emptyMessage="Nenhum registro encontrado" itemValue="#{marca}"
+					itemLabel="#{marca.nome}" queryDelay="500"
+					converter="#{marcaConverter}" placeholder="Ex.: FIAT, Volkswagen"
+					groupBy="#{mbgen.getMarcaGroup(marca)}" scrollHeight="250"
+					forceSelection="true">
+				</p:autoComplete>
+			</div>
+			<div class="col-lg-4">
+				<h3>Por Modelo</h3>
+				<hr />
+				<p:autoComplete value="#{perguntaBean.perguntaAdd.modelo}"
+					effect="fade" completeMethod="#{perguntaBean.completeMarca}"
+					var="marca" emptyMessage="Nenhum registro encontrado"
+					itemValue="#{marca}" itemLabel="#{marca.nome}" queryDelay="500"
+					converter="#{marcaConverter}" placeholder="Ex.: FIAT, Volkswagen"
+					groupBy="#{mbgen.getMarcaGroup(marca)}" scrollHeight="250"
+					forceSelection="true">
+				</p:autoComplete>
+			</div>
+			<div class="col-lg-4">
+				<h3>Por Estado</h3>
+				<hr />
+				<p:autoComplete value="#{perguntaBean.perguntaAdd.estado}"
+					effect="fade" completeMethod="#{perguntaBean.completeEstado}"
+					var="est" itemValue="#{est.sigla}" itemLabel="#{est.nome}"
+					queryDelay="500" placeholder="Ex.: DF, Rio de Janeiro"
+					groupBy="#{mbgen.getEstadoGroup(est)}" scrollHeight="250"
+					forceSelection="true">
+				</p:autoComplete>
+				 
+				<p:commandButton styleClass="btn btn-sm btn-default"
+					onclick="getLocation()" icon="fa fa-location-arrow"
+					value="Localização atual" style="margin-left:5%">
+				</p:commandButton>
+				
+			</div>
+			<div class="col-lg-4">
+				<h3>Por Categoria</h3>
+				<hr />
+				<p:autoComplete value="#{perguntaBean.perguntaAdd.categoria}"
+					effect="fade" completeMethod="#{perguntaBean.completeCategoria}"
+					var="cat" itemValue="#{cat.nome}" itemLabel="#{cat.nome}"
+					dropdown="true" queryDelay="500"
+					placeholder="Ex.: Motor, Estabilidade..." scrollHeight="250"
+					forceSelection="true">
+					<f:ajax event="select" render="panelPerguntas"
+						listener="#{perguntaBean.atualizaFAQ}" />
+				</p:autoComplete>
+			</div>
+
+			<p:outputPanel id="panelPerguntas">
+				<div class="col-lg-12"
+					style="margin-bottom: 50px; margin-top: 50px;">
+					<h3>Pergunta</h3>
+					<hr />
+
+					<div class="col-md-6">
+						<h:inputTextarea styleClass="form-control" rows="7"
+							value="#{perguntaBean.perguntaAdd.texto}" />
+					</div>
+					<div class="col-md-6">
+
+						<div class="list-group">
+							<button type="button"
+								class="list-group-item list-group-item-success">Perguntas
+								Frequentes</button>
+							<ui:repeat var="p" value="#{perguntaBean.perguntasFAQ}">
+								<p:commandButton styleClass="list-group-item" value="#{p}"
+									update="form:panelPerguntas">
+									<f:setPropertyActionListener value="#{p}"
+										target="#{perguntaBean.perguntaAdd.texto}" />
+								</p:commandButton>
+							</ui:repeat>
+						</div>
+					</div>
+				</div>
+			</p:outputPanel>
+			<div class="col-lg-12" style="margin-bottom: 10px;">
+				<h:commandButton value="Perguntar"
+					action="#{perguntaBean.adicionarPergunta}"
+					styleClass="btn btn-success" />
+				<p:spacer width="10px" />
+				<h:commandButton value="Cancelar" action="perguntas.xhtml"
+					immediate="true" styleClass="btn btn-default" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

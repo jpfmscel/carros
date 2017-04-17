@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Carros</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css" />
+	<link href="css/first.css" rel="stylesheet" />
+	<f:metadata>
+		<f:viewAction action="#{loginBean.isLoggedForwardLogin()}" />
+	</f:metadata>
+</h:head>
+<h:body style="background: #4e8ce5;">
+	<div class="row" style="margin-top: 3%">
+		<div
+			class="col-lg-4 col-sm-6 col-xs-8 col-lg-offset-4 col-sm-offset-3 col-xs-offset-2">
+			<div class="jumbotron"
+				style="border-radius: 25px; box-shadow: 5px 5px 80px #000000; height: 500px;">
+				<h:form styleClass="form-signin">
+					<h2 class="form-signin-heading text-center">Carros</h2>
+					<p:outputPanel rendered="#{dashboardView.hasErrorMessage()}">
+						<br></br>
+						<ui:repeat value="#{facesContext.messageList}" var="message">
+							<div class="row" style="margin-left: 1%">
+								<span class="label label-danger"><h:outputText
+										value="#{message.summary}" escape="false" /></span>
+							</div>
+						</ui:repeat>
+					</p:outputPanel>
+					<br></br>
+					<div class="col-lg-10 col-lg-offset-1">
+
+						<h:inputText id="inputEmail" class="form-control input-lg"
+							autofocus="true" value="#{loginBean.usuarioLogado.email}"
+							required="true" a:placeholder="E-mail" maxlength="100"
+							requiredMessage="Digite seu login!" />
+
+						<h:inputSecret id="inputPassword" class="form-control input-lg"
+							style="margin-top:5%;" value="#{loginBean.usuarioLogado.senha}"
+							required="true" a:placeholder="Senha" maxlength="50"
+							requiredMessage="Digite sua senha!" />
+						<br></br>
+						<div class="form-group"
+							style="margin-top: 2%; padding-bottom: 5%;">
+							<h:commandButton value="Login"
+								styleClass="btn btn-lg btn-block btn-success"
+								action="#{loginBean.login}" />
+							<h:commandLink value="Voltar"
+								class="btn btn-lg btn-block btn-primary" style="margin-top:1%;"
+								action="index.xhtml" immediate="true" />
+						</div>
+						<p>
+							Ainda não tem uma conta? <br></br>
+							<h:commandLink action="adicionarUsuario"
+								value="Cadastre-se aqui!" immediate="true" />
+						</p>
+					</div>
+				</h:form>
+			</div>
+		</div>
+		<div class="col-lg-4" />
+	</div>
+</h:body>
+</html>

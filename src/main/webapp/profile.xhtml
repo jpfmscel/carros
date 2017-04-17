@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Perfil</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<div class="col-lg-4">
+			<h2>Olá!</h2>
+			<p>Veja aqui o seu perfil!</p>
+			<h:commandButton value="Editar Perfil" styleClass="btn btn-default" />
+			<h:commandButton value="Trocar Senha"
+				styleClass="btn btn-default col-lg-offset-1" />
+		</div>
+
+		<div class="col-lg-8">
+			<h3>Dados Pessoais</h3>
+			<hr></hr>
+			<div class="col-lg-6">
+
+				<h4>Nome</h4>
+				<h:outputText value="#{loginBean.usuarioLogado.nome}"
+					styleClass="col-lg-offset-1" />
+				<h4>E-mail</h4>
+				<h:outputText value="#{loginBean.usuarioLogado.email}"
+					styleClass="col-lg-offset-1" />
+			</div>
+			<div class="col-lg-6">
+				<h4>Foto</h4>
+				<img style="margin-left: 13%" class="img-circle"
+					src="http://placehold.it/140x140" alt="Generic placeholder image"
+					width="140" height="140" />
+				<h:commandButton styleClass="btn btn-default" value="Alterar"
+					style="margin-left:30px" />
+			</div>
+
+			<p:spacer height="30px" width="100%" />
+
+			<h3>Extrato</h3>
+			<hr></hr>
+
+			<div class="table-responsive">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>Data</th>
+							<th>Pet</th>
+							<th>Créditos</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="success">
+							<td>Compra de Créditos</td>
+							<td>07/07 (2016)</td>
+							<td>-</td>
+							<td>+ 21</td>
+							<td>21</td>
+						</tr>
+						<tr>
+							<td>Hospedagem</td>
+							<td>08/07 (2016)</td>
+							<td>Bullit</td>
+							<td>- 6</td>
+							<td>15</td>
+						</tr>
+						<tr>
+							<td>Hospedagem</td>
+							<td>26/12 (2016)</td>
+							<td>Ruby</td>
+							<td>- 3</td>
+							<td>12</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<p:spacer height="30px" width="100%" />
+
+			<h3>Localização</h3>
+			<hr></hr>
+			<script
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaixKoXagR5UGhD9HbB03Oip585RCHBks&amp;callback=initMap"
+				type="text/javascript" />
+			<h4>Endereço</h4>
+
+			<p>Rua da Silva, 8</p>
+			<p:spacer height="20px" width="100%" />
+			<p:gmap center="-15.7880217,-47.8390782" zoom="12" type="MAP"
+				style="width:100%;height:250px" />
+
+			<p:spacer height="100px" width="100%" />
+
+		</div>
+	</ui:define>
+
+
+</ui:composition>
+</html>

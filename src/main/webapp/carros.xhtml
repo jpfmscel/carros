@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">carros :D</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-2">
+				<h2>Olá!</h2>
+				<p>Adicione seus amiguinhos por aqui</p>
+				<h:commandButton action="adicionarCarro.xhtml"
+					value="Adicionar carro" styleClass="btn btn-primary" />
+			</div>
+
+			<div class="col-lg-10">
+				<ui:repeat var="carro" value="#{loginBean.usuarioLogado.carros}">
+					<div class="col-lg-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h3>#{carro.marca.nome}</h3>
+								<h4>#{carro.modelo}</h4>
+							</div>
+							<div class="panel-body">
+								<div class="col-lg-4">
+									<img class="img-circle" src="http://placehold.it/120x120"
+										alt="Generic placeholder image" width="120" height="120" />
+								</div>
+								<div class="col-lg-5">
+									<h4>#{carro.cor}</h4>
+									<p style="color: gray">
+										<i class="fa fa-fw fa-list-alt" /> #{carro.placa}
+									</p>
+
+									<p style="color: gray">
+										<i class="fa fa-fw fa-cogs" />
+										<h:outputText rendered="#{carro.automatico}"
+											value=" Automático" />
+										<h:outputText rendered="#{!carro.automatico}" value=" Manual" />
+									</p>
+								</div>
+								<div class="col-lg-3">
+									<h:commandButton value="Excluir"
+										action="#{carroBean.removerCarro(carro)}"
+										styleClass="btn btn-danger"
+										style="float:right; margin-left:2%; width: 70px; margin-bottom:5%;" />
+									<h:commandButton value="Editar" styleClass="btn btn-default"
+										style="float:right; width: 70px;" />
+								</div>
+							</div>
+						</div>
+					</div>
+				</ui:repeat>
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+</html>

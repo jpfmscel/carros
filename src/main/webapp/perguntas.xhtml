@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Perguntas para você!</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+
+	<ui:define name="body">
+		<h:form>
+
+			<div class="col-md-12">
+
+				<div class="col-lg-4">
+					<h3>Por Estado</h3>
+					<hr />
+					<p:autoComplete value="#{perguntaBean.perguntaFilter.estado}"
+						effect="fade" completeMethod="#{perguntaBean.completeEstado}"
+						var="est" itemValue="#{est.sigla}" itemLabel="#{est.nome}"
+						queryDelay="500" placeholder="Ex.: DF, Rio de Janeiro"
+						groupBy="#{perguntaBean.getEstadoGroup(est)}" scrollHeight="250"
+						forceSelection="true">
+					</p:autoComplete>
+				</div>
+				<div class="col-lg-4">
+					<h3>Por Categoria</h3>
+					<hr />
+					<p:autoComplete value="#{perguntaBean.perguntaFilter.categoria}"
+						effect="fade" completeMethod="#{perguntaBean.completeCategoria}"
+						var="cat" itemValue="#{cat.nome}" itemLabel="#{cat.nome}"
+						dropdown="true" queryDelay="500"
+						placeholder="Ex.: Motor, Estabilidade..." scrollHeight="250"
+						forceSelection="true">
+					</p:autoComplete>
+				</div>
+			</div>
+
+
+			<div class="col-md-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">Perguntas</div>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Marca</th>
+								<th>Modelo</th>
+								<th>Cidade / Estado</th>
+								<th>Categoria</th>
+								<th># de Respostas</th>
+							</tr>
+						</thead>
+						<tbody>
+							<ui:repeat var="per" value="#{loginBean.usuarioLogado.perguntas}">
+								<tr>
+									<td><h:commandLink value="#{per.marca.nome}"
+											action="#{perguntaBean.responder()}">
+											<f:param name="perguntaSelecionada" value="#{per.id}" />
+										</h:commandLink></td>
+									<td><h:commandLink value="#{per.modelo}"
+											action="#{perguntaBean.responder()}">
+											<f:param name="perguntaSelecionada" value="#{per.id}" />
+										</h:commandLink></td>
+									<td><h:commandLink value="#{per.estado} / #{per.cidade}"
+											action="#{perguntaBean.responder()}">
+											<f:param name="perguntaSelecionada" value="#{per.id}" />
+										</h:commandLink></td>
+									<td><h:commandLink value="#{per.categoria}"
+											action="#{perguntaBean.responder()}">
+											<f:param name="perguntaSelecionada" value="#{per.id}" />
+										</h:commandLink></td>
+									<td><h:commandLink action="#{perguntaBean.verRespostas()}">
+											<span class="badge">#{per.respostas.size()}</span>
+											<f:param name="perguntaSelecionada" value="#{per.id}" />
+										</h:commandLink></td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

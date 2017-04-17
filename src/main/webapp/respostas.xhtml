@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Respostas</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-6">
+				<h3>Dados da Pergunta</h3>
+				<hr />
+				<h4>Marca</h4>
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.marca.nome}"
+					styleClass="col-md-offset-1" />
+				<h4>Modelo</h4>
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.modelo}"
+					styleClass="col-md-offset-1" />
+				<h4>Estado / Cidade</h4>
+				<h:outputText
+					value="#{perguntaBean.perguntaSelecionada.estado} /
+				#{perguntaBean.perguntaSelecionada.cidade}"
+					styleClass="col-md-offset-1" />
+				<h4>Categoria</h4>
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.categoria}"
+					styleClass="col-md-offset-1" />
+
+			</div>
+			<div class="col-lg-6" style="margin-bottom: 10%;">
+				<h3>#{perguntaBean.perguntaSelecionada.texto}</h3>
+				<hr />
+				<div class="panel panel-default">
+					<div class="panel-heading">#{perguntaBean.perguntaSelecionada.respostas.size()}
+						respostas</div>
+					<table class="table table-hover">
+						<thead>
+						</thead>
+						<tbody>
+							<ui:repeat var="res"
+								value="#{perguntaBean.perguntaSelecionada.respostas}">
+								<tr>
+									<td>#{res.texto}</td>
+								</tr>
+							</ui:repeat>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-lg-12" style="margin-top: 10%;">
+				<h:commandButton value="Voltar" action="perguntas" immediate="true"
+					styleClass="btn btn-primary" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

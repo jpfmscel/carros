@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Cadastro de Usuários</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"	type="text/css" />
+	<link href="css/first.css" rel="stylesheet" />
+	
+	<script src="js/jquery.js"/>
+	<script src="js/bootstrap.min.js"/>
+</h:head>
+<h:body>
+
+	<div class="row wrapper form-large">
+		<div class="col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+			<h:form id="adduser">
+				<br />
+				<h1>
+					Vetz
+					<h3>Registrar</h3>
+				</h1>
+				<p:outputPanel rendered="#{dashboardView.hasErrorMessage()}">
+					<br></br>
+					<ui:repeat value="#{facesContext.messageList}" var="message">
+						<div class="row">
+							<span class="label label-danger"><h:outputText
+									value="#{message.summary}" escape="false" /></span>
+						</div>
+					</ui:repeat>
+				</p:outputPanel>
+				<br></br>
+				<div class="form-group">
+					<h:inputText class="form-control" required="true"
+						a:placeholder="nome completo"
+						requiredMessage="Digite o nome do usuário."
+						value="#{manterUsuario.usuarioAdd.nome}" />
+				</div>
+				<div class="form-group">
+					<h:inputText class="form-control" required="true"
+						a:placeholder="e-mail" requiredMessage="Digite o e-mail."
+						value="#{manterUsuario.usuarioAdd.email}" />
+				</div>
+				<div class="form-group">
+					<h:inputSecret requiredMessage="Digite a senha"
+						a:placeholder="senha" class="form-control" required="true"
+						value="#{manterUsuario.usuarioAdd.senha}" />
+				</div>
+				<div class="form-group">
+					<h:inputSecret class="form-control" required="true"
+						a:placeholder="confirmação de senha"
+						requiredMessage="Digite a confirmação de senha."
+						value="#{manterUsuario.usuarioAdd.confirmacaoSenha}" />
+				</div>
+				<div class="form-group">
+					<h:commandButton value="Registrar"
+						styleClass="btn btn-block button green submit"
+						action="#{manterUsuario.adicionarUsuario}" />
+				</div>
+				<div class="form-group">
+					<h:commandButton value="Voltar"
+						styleClass="btn btn-block button green submit"
+						action="login.xhtml" immediate="true" />
+				</div>
+			</h:form>
+		</div>
+		<div class="col-lg-4" />
+	</div>
+</h:body>
+</html>

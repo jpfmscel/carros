@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Adicionar cartao</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-4">
+				<h2>Olá!</h2>
+				<p>Adicione um cartão de crédito!</p>
+			</div>
+
+			<div class="col-lg-8 form-group">
+				<div class="col-lg-12">
+					<label>Nome Impresso</label>
+					<h:inputText styleClass="form-control"
+						value="#{cartaoBean.cartaoAdd.nomeImpresso}"
+						placeholder="Ex.: MARIA DA SILVA" />
+				</div>
+				<div class="col-lg-12">
+					<label>Bandeira do cartão</label>
+					<h:selectOneMenu value="#{cartaoBean.cartaoAdd.bandeira}">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItem itemLabel="Visa" itemValue="Visa" />
+						<f:selectItem itemLabel="Mastercard" itemValue="Mastercard" />
+						<f:selectItem itemLabel="Elo" itemValue="Elo" />
+					</h:selectOneMenu>
+				</div>
+				<div class="col-lg-12">
+					<label>Número do cartão</label>
+					<p:inputMask styleClass="form-control" mask="9999 9999 9999 9999"
+						value="#{cartaoBean.cartaoAdd.numeroCartao}"
+						placeholder="Ex.: 1234 1234 1234 1234" />
+				</div>
+				<div class="col-lg-12">
+					<label>Válido Até</label>
+					<p:inputMask styleClass="form-control" mask="99/99"
+						value="#{cartaoBean.cartaoAdd.expDate}" placeholder="Ex.: 10/22" />
+				</div>
+				<div class="col-lg-12">
+					<label>Código de Verificão</label>
+					<p:inputMask styleClass="form-control"
+						value="#{cartaoBean.cartaoAdd.codVerificacao}"
+						placeholder="Ex.: 123" mask="999" />
+				</div>
+				<div class="col-lg-6">
+					<h:commandButton value="Adicionar"
+						action="#{cartaoBean.adicionarCartao}"
+						styleClass="btn btn-success" />
+					<p:spacer width="10px" />
+					<h:commandButton value="Cancelar" action="pagamento"
+						immediate="true" styleClass="btn btn-default" />
+				</div>
+			</div>
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+</html>

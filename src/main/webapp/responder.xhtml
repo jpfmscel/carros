@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Responder</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-6">
+				<h3>Dados da Pergunta</h3>
+				<hr />
+				<h4>Marca</h4>
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.marca.nome}"
+					styleClass="col-md-offset-1" />
+				<h4>Modelo</h4>
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.modelo}"
+					styleClass="col-md-offset-1" />
+				<h4>Estado / Cidade</h4>
+				<h:outputText
+					value="#{perguntaBean.perguntaSelecionada.estado} /
+				#{perguntaBean.perguntaSelecionada.cidade}"
+					styleClass="col-md-offset-1" />
+				<h4>Categoria</h4>
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.categoria}"
+					styleClass="col-md-offset-1" />
+
+				<h4>Categoria</h4>
+				<hr />
+				<h:outputText value="#{perguntaBean.perguntaSelecionada.texto}"
+					styleClass="col-md-offset-1" />
+			</div>
+			<div class="col-lg-6" style="margin-bottom: 10%;">
+				<h3>Resposta</h3>
+				<hr />
+				<h:inputTextarea styleClass="form-control" rows="7"
+					value="#{perguntaBean.respostaAdd.texto}" />
+			</div>
+			<div class="col-lg-12" style="margin-top: 10%; margin-bottom: 10%;">
+				<h:commandButton value="Responder"
+					action="#{perguntaBean.adicionarResposta}"
+					styleClass="btn btn-success" />
+				<p:spacer width="10px" />
+				<h:commandButton value="Cancelar" action="perguntas"
+					immediate="true" styleClass="btn btn-default" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

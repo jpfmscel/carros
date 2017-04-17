@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="home.xhtml">
+	<ui:define name="title">Adicionar carro</ui:define>
+	<ui:define name="head">
+		<f:metadata>
+			<f:viewAction action="#{loginBean.isLoggedForward()}" />
+		</f:metadata>
+	</ui:define>
+	<ui:define name="body">
+		<h:form>
+			<div class="col-lg-4">
+				<h2>Olá!</h2>
+				<p>Convide seus amigos!</p>
+			</div>
+
+			<div class="col-lg-8 form-group">
+				<div class="col-lg-12">
+					<h4>Marca</h4>
+					<p:autoComplete value="#{carroBean.carroAdd.marca}" effect="fade"
+						completeMethod="#{mbgen.completeMarca}" var="marca"
+						emptyMessage="Nenhum registro encontrado" itemValue="#{marca}"
+						itemLabel="#{marca.nome}" queryDelay="500"
+						converter="#{marcaConverter}"
+						groupBy="#{mbgen.getMarcaGroup(marca)}" scrollHeight="250"
+						forceSelection="true">
+					</p:autoComplete>
+				</div>
+				<div class="col-lg-12">
+					<h4>Modelo</h4>
+					<h:inputText styleClass="form-control" value="#"
+						placeholder="Modelo do carro" />
+				</div>
+				<div class="col-lg-12">
+					<h4>Cor</h4>
+					<h:inputText styleClass="form-control"
+						value="#{carroBean.carroAdd.cor}" placeholder="Cor do carro" />
+				</div>
+				<div class="col-lg-12">
+					<h4>Placa</h4>
+					<p:inputMask styleClass="form-control"
+						value="#{carroBean.carroAdd.placa}" placeholder="Placa do carro"
+						mask="aaa-9999" />
+				</div>
+				<div class="col-lg-12">
+					<h4>Câmbio</h4>
+					<p:inputSwitch value="#{carroBean.carroAdd.automatico}"
+						offLabel="Manual" onLabel="Automático" />
+				</div>
+				<div class="col-lg-6">
+					<h:commandButton value="Adicionar"
+						action="#{carroBean.adicionarCarro}" styleClass="btn btn-success" />
+					<p:spacer width="10px" />
+					<h:commandButton value="Cancelar" action="carros" immediate="true"
+						styleClass="btn btn-default" />
+				</div>
+			</div>
+
+		</h:form>
+	</ui:define>
+
+
+</ui:composition>
+</html>
